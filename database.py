@@ -83,3 +83,11 @@ def create_loan(customer_id, car_id, car_name, amount, months, status):
         """, (customer_id, car_id, car_name, amount, months,
               monthly_payment, status)).fetchone()
     return row["id"], monthly_payment
+
+
+def get_cars():
+    with get_connection() as conn:
+        return conn.execute("""
+            SELECT id, brand, model, year, price::float AS price, color, status
+            FROM cars ORDER BY id
+        """).fetchall()

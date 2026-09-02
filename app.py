@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from config import PORT
-from database import initialize_database, get_customers, get_customer, get_accounts, get_loans, get_loan, create_loan
+from database import initialize_database, get_customers, get_customer, get_accounts, get_loans, get_loan, create_loan, get_cars
 
 app = Flask(__name__)
 
@@ -11,6 +11,12 @@ def home():
 @app.get("/api/health")
 def health():
     return jsonify(success=True, system="Bank Financing API", status="online")
+
+@app.get("/api/cars")
+def cars():
+    data = get_cars()
+    return jsonify(success=True, count=len(data), cars=data)
+
 
 @app.get("/api/customers")
 def customers():
